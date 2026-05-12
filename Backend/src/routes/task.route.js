@@ -1,10 +1,18 @@
 import { Router } from "express";
+import { 
+    createTask,
+    getAllTasks,
+    toggleTaskCompletion,
+    updateTask,
+    deleteTask
+} from "../controllers/task.controller.js";
 
 const router = Router();
 
 router.route("/").get(getAllTasks);
-router.route("/create-task").post(createTask);
-router.route("/update-task").put(updateTask);
-router.route("/delete-task").delete(deleteTask);
+router.route("/").post(createTask);
+router.route("/").put(updateTask);
+router.route("/").patch(toggleTaskCompletion);
+router.route("/").delete(deleteTask);
 
 export default router;
