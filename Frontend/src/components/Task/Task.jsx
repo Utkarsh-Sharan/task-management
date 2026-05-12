@@ -1,9 +1,13 @@
 import React from 'react'
 import TaskList from './TaskList'
+import TaskHeader from './TaskHeader'
 
 const Task = () => {
   return (
-    <TaskList />
+    <section>
+        <TaskHeader />
+        <TaskList />
+    </section>
   )
 }
 
