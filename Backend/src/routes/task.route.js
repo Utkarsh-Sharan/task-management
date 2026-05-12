@@ -6,13 +6,14 @@ import {
     updateTask,
     deleteTask
 } from "../controllers/task.controller.js";
+import { verifyTask } from "../middlewares/task.middleware.js";
 
 const router = Router();
 
 router.route("/").get(getAllTasks);
 router.route("/").post(createTask);
-router.route("/").put(updateTask);
-router.route("/").patch(toggleTaskCompletion);
-router.route("/").delete(deleteTask);
+router.route("/").put(verifyTask, updateTask);
+router.route("/").patch(verifyTask, toggleTaskCompletion);
+router.route("/").delete(verifyTask, deleteTask);
 
 export default router;
