@@ -13,10 +13,11 @@ app.use(
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
         allowedHeaders: ["Content-type", "Authorization"],
     })
-)
+);
 
-app.get("/", (req, res) => {
-    res.send("Hello backend");
-});
+//Routes
+import taskRouter from "./routes/task.route.js";
+
+app.use("/api/v1/task", taskRouter);
 
 export default app;
