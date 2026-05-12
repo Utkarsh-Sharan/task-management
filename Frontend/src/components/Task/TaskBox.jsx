@@ -1,7 +1,18 @@
 import { PenBox, Trash2 } from 'lucide-react';
 import React from 'react'
+import { useTaskStore } from '../../store/useTaskStore';
 
 const TaskBox = ({id, title}) => {
+  const {deleteTask} = useTaskStore();
+
+  const handleUpdate = () => {
+
+  }
+
+  const handleDelete = (id) => {
+    deleteTask({taskId: id});
+  }
+
   return (
     <article className='flex justify-between items-center w-full bg-black/30 rounded-lg p-4 text-white'>
         <div className='flex justify-center items-center gap-2'>
@@ -15,7 +26,7 @@ const TaskBox = ({id, title}) => {
 
         <div className='flex justify-center items-center gap-2'>
             <PenBox />
-            <Trash2 />
+            <Trash2 onClick={() => handleDelete(id)} />
         </div>
     </article>
   )

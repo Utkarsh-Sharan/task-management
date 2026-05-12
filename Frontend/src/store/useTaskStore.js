@@ -12,7 +12,13 @@ export const useTaskStore = create((set, get) => ({
             
             set({tasks: res.data.data.tasks});
         } catch (error) {
-            
+            const backend = error.response?.data;
+            const message =
+                (backend?.errors && Object.values(backend.errors)[0]) ||
+                backend?.message ||
+                "Something went wrong!";
+
+            toast.error(message);
         }
     },
 
@@ -23,7 +29,6 @@ export const useTaskStore = create((set, get) => ({
             set({reRenderTasks: !get().reRenderTasks});
             toast.success(res.data.message);
         } catch (error) {
-            console.log(error);
             const backend = error.response?.data;
             const message =
                 (backend?.errors && Object.values(backend.errors)[0]) ||
@@ -33,4 +38,21 @@ export const useTaskStore = create((set, get) => ({
             toast.error(message);
         }
     },
+
+    deleteTask: async (data) => {
+        try {
+            const res = await axiosInstance.delete("/task/", {data});
+
+            set({reRenderTasks: !get().reRenderTasks});
+            toast.success(res.data.message);
+        } catch (error) {
+            const backend = error.response?.data;
+            const message =
+                (backend?.errors && Object.values(backend.errors)[0]) ||
+                backend?.message ||
+                "Something went wrong!";
+
+            toast.error(message);
+        }
+    }
 }))
