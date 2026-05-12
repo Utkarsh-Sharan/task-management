@@ -15,7 +15,7 @@ const TaskList = () => {
         tasks.map(task => (
             <TaskBox key={task._id} id={task._id} title={task.title} />
         )) :
-        "No tasks created yet!"}
+        <p className='text-white text-2xl'>No tasks created yet!</p>}
     </section>
   )
 }

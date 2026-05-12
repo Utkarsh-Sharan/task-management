@@ -7,7 +7,7 @@ const titleValidator = () => {
             .notEmpty()
             .withMessage("Title should not be empty!")
             .isLength({min: 5, max: 50})
-            .withMessage("Title must be 3-50 characters long!")
+            .withMessage("Title must be 5-50 characters long!")
     ];
 }
 

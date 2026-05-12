@@ -39,6 +39,37 @@ export const useTaskStore = create((set, get) => ({
         }
     },
 
+    toggleTaskCompletion: async (data) => {
+        try {
+            await axiosInstance.patch("/task/", data);
+        } catch (error) {
+            const backend = error.response?.data;
+            const message =
+                (backend?.errors && Object.values(backend.errors)[0]) ||
+                backend?.message ||
+                "Something went wrong!";
+
+            toast.error(message);
+        }
+    },
+
+    updateTask: async (data) => {
+        try {
+            const res = await axiosInstance.put("/task/", data);
+
+            set({reRenderTasks: !get().reRenderTasks});
+            toast.success(res.data.message);
+        } catch (error) {
+            const backend = error.response?.data;
+            const message =
+                (backend?.errors && Object.values(backend.errors)[0]) ||
+                backend?.message ||
+                "Something went wrong!";
+
+            toast.error(message);
+        }
+    },
+
     deleteTask: async (data) => {
         try {
             const res = await axiosInstance.delete("/task/", {data});
