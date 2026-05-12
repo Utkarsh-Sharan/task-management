@@ -48,14 +48,12 @@ const toggleTaskCompletion = asyncHandler(async (req, res) => {
 });
 
 const deleteTask = asyncHandler(async (req, res) => {
-    const task = req.task;
-
-    await Task.deleteOne(task);
+    await Task.findOneAndDelete(req.task._id);
 
     return res
         .status(200)
         .json(new ApiResponse(200, {}, "Task deleted successfully!"));
-})
+});
 
 export {
     getAllTasks,
