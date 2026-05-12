@@ -3,10 +3,9 @@ import { useTaskStore } from "../../store/useTaskStore.js";
 
 const TaskInput = () => {
   const [task, setTask] = useState("");
-  const {getAllTasks, createTask} = useTaskStore();
+  const {createTask} = useTaskStore();
 
   const handleClick = () => {
-    getAllTasks();
     createTask({title: task});
 
     setTask("");

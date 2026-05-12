@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 export const useTaskStore = create((set, get) => ({
     tasks: [],
-    renderTasks: false,
+    reRenderTasks: false,
 
     getAllTasks: async () => {
         try {
@@ -19,8 +19,8 @@ export const useTaskStore = create((set, get) => ({
     createTask: async (data) => {
         try {
             const res = await axiosInstance.post("/task/", data);
-            console.log(res);
-
+            
+            set({reRenderTasks: !get().reRenderTasks});
             toast.success(res.data.message);
         } catch (error) {
             console.log(error);
