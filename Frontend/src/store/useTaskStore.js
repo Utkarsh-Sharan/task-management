@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 export const useTaskStore = create((set, get) => ({
     tasks: [],
-    renderTasks: false,
+    reRenderTasks: false,
 
     getAllTasks: async () => {
         try {
@@ -12,18 +12,6 @@ export const useTaskStore = create((set, get) => ({
             
             set({tasks: res.data.data.tasks});
         } catch (error) {
-            
-        }
-    },
-
-    createTask: async (data) => {
-        try {
-            const res = await axiosInstance.post("/task/", data);
-            console.log(res);
-
-            toast.success(res.data.message);
-        } catch (error) {
-            console.log(error);
             const backend = error.response?.data;
             const message =
                 (backend?.errors && Object.values(backend.errors)[0]) ||
@@ -33,4 +21,69 @@ export const useTaskStore = create((set, get) => ({
             toast.error(message);
         }
     },
+
+    createTask: async (data) => {
+        try {
+            const res = await axiosInstance.post("/task/", data);
+            
+            set({reRenderTasks: !get().reRenderTasks});
+            toast.success(res.data.message);
+        } catch (error) {
+            const backend = error.response?.data;
+            const message =
+                (backend?.errors && Object.values(backend.errors)[0]) ||
+                backend?.message ||
+                "Something went wrong!";
+
+            toast.error(message);
+        }
+    },
+
+    toggleTaskCompletion: async (data) => {
+        try {
+            await axiosInstance.patch("/task/", data);
+        } catch (error) {
+            const backend = error.response?.data;
+            const message =
+                (backend?.errors && Object.values(backend.errors)[0]) ||
+                backend?.message ||
+                "Something went wrong!";
+
+            toast.error(message);
+        }
+    },
+
+    updateTask: async (data) => {
+        try {
+            const res = await axiosInstance.put("/task/", data);
+
+            set({reRenderTasks: !get().reRenderTasks});
+            toast.success(res.data.message);
+        } catch (error) {
+            const backend = error.response?.data;
+            const message =
+                (backend?.errors && Object.values(backend.errors)[0]) ||
+                backend?.message ||
+                "Something went wrong!";
+
+            toast.error(message);
+        }
+    },
+
+    deleteTask: async (data) => {
+        try {
+            const res = await axiosInstance.delete("/task/", {data});
+
+            set({reRenderTasks: !get().reRenderTasks});
+            toast.success(res.data.message);
+        } catch (error) {
+            const backend = error.response?.data;
+            const message =
+                (backend?.errors && Object.values(backend.errors)[0]) ||
+                backend?.message ||
+                "Something went wrong!";
+
+            toast.error(message);
+        }
+    }
 }))
