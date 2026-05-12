@@ -25,13 +25,10 @@ const createTask = asyncHandler(async (req, res) => {
 });
 
 const updateTask = asyncHandler(async (req, res) => {
-    const {taskId, title} = req.body;
-
-    const task = await Task.findById(taskId);
-    if(!task) throw new ApiError(404, "Invalid not found!");
+    const task = req.task;
+    const {title} = req.body;
 
     task.title = title;
-
     await task.save({validateBeforeSave: false});
 
     return res
@@ -40,10 +37,7 @@ const updateTask = asyncHandler(async (req, res) => {
 });
 
 const toggleTaskCompletion = asyncHandler(async (req, res) => {
-    const {taskId} = req.body;
-
-    const task = await Task.findById(taskId);
-    if(!task) throw new ApiError(404, "Task not found!");
+    const task = req.task;
 
     task.isCompleted = !task.isCompleted;
     await task.save({validateBeforeSave: false});
@@ -54,15 +48,12 @@ const toggleTaskCompletion = asyncHandler(async (req, res) => {
 });
 
 const deleteTask = asyncHandler(async (req, res) => {
-    const {taskId} = req.body;
-
-    const task = await Task.findByIdAndDelete(taskId);
-    if(!task) throw new ApiError(404, "Task not found!");
+    await Task.findOneAndDelete(req.task._id);
 
     return res
         .status(200)
         .json(new ApiResponse(200, {}, "Task deleted successfully!"));
-})
+});
 
 export {
     getAllTasks,
