@@ -37,8 +37,7 @@ const TaskBox = ({id, title}) => {
         <div className='flex justify-center items-center gap-2'>
             
             {isUpdatingTask ?
-            <input 
-                ref={inputRef}
+            <input
                 type="text"
                 className='w-full bg-brand-secondary text-white rounded-md pl-2'
                 placeholder='Enter new title'
