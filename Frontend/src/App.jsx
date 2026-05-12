@@ -1,11 +1,10 @@
+import LandingPage from "./pages/LandingPage.jsx"
+
 function App() {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-      <p className="text-red-200">This is para</p>
-    </>
+    <section className='w-full flex items-center justify-center h-screen bg-brand-primary'>
+      <LandingPage />
+    </section>
   )
 }
 

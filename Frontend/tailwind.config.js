@@ -5,7 +5,16 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        brand: {
+          primary: "#3B0902",
+          secondary: "#AE6252",
+          tertiary: "#9D629C",
+          text: "#D696D3",
+        },
+      }
+    },
   },
   plugins: [],
 }
